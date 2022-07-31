@@ -23,7 +23,7 @@
 
                     <div class="game-result">
                         <h2>Você fez {{ pontuacao_do_aluno }} pontos e está no</h2>
-                        <h2 class="status-player">2º</h2>
+                        <h2 class="status-player">{{ posicao_do_aluno }}</h2>
                         <h2>lugar!</h2>
                     </div>
 
@@ -31,6 +31,7 @@
 
                     <h3>Ranking</h3>
                     {% for alunos in primeiros_alunos_da_classificacao %}
+
                     <div class="choice-container">
                         <p class="choice-prefix">{{ forloop.counter }}º</p>
                         <p class="choice-text">{{ aluno.aluno__nome }} - {{ aluno.pontos__sum }} com pontos</p>

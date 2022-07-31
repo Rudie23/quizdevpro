@@ -10,10 +10,13 @@ class Aluno(models.Model):
     email = models.EmailField(unique=True)
     criado_em = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.email
+
 
 class Pergunta(models.Model):
     enunciado = models.TextField()
-    alternativas = models.JSONField()  # modelo permite ter uma hierarquia que permite colocar várias opções
+    alternativas = models.JSONField()  # modelo permite ter uma hierarquia em JSON que permite colocar várias opções
     disponivel = models.BooleanField(default=False)
     alternativa_correta = models.IntegerField(choices=[  # um numero inteiro que vai indicar o indice da alternatica
         # correta
@@ -28,13 +31,14 @@ class Pergunta(models.Model):
 
 
 class Resposta(models.Model):
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)  # se eu apago um Aluno, eu apago a resposta
     pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
     pontos = models.IntegerField()
     respondida_em = models.DateTimeField(auto_now_add=True)
 
-    # Quero colocar que o usuario possa responder, de forma correta, APENAS UMA PERGUNTA
+    # Quero colocar que o usuario possa responder, de forma correta, APENAS UMA VEZ A PERGUNTA
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['aluno', 'pergunta'], name='resposta_unica')
         ]
+    # Quero definir uma restrição de unicidade nos fields aluno e pergunta, e o nome dessa restrição é resposta_unica
