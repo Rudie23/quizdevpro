@@ -46,8 +46,8 @@ def classificacao(request):
         # Agrupar as repostar por aluno, use o values(). O annotate irá somar as notas de cada aluno. o filter
         # pontos__sum__gt irá pegar os alunos com as maiores notas
 
-        numero_de_alunos_com_maior_pontuacao = Resposta.objects.values('aluno').annotate(Sum('pontos')).filter(pontos__sum__gt = pontuacao_do_aluno).count()
-
+        numero_de_alunos_com_maior_pontuacao = Resposta.objects.values('aluno').annotate(Sum('pontos')).filter(
+            pontos__sum__gt=pontuacao_do_aluno).count()
         primeiros_alunos_da_classificacao = list(
             Resposta.objects.values('aluno', 'aluno__nome').annotate(Sum('pontos')).order_by('-pontos__sum')[:5])
 
