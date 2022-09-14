@@ -11,13 +11,13 @@ from quiz.main.models import Pergunta, Aluno, Resposta
 def home(request):
     if request.method == 'POST':
         # Usuario ja existe
-        email = request.POST['email']
+        email = request.POST['email']  # irá pegar o valor de 'email' e atribui para a variavel email
         try:
             # Esta função irá procurar se tem o 'email' no BD
             aluno = Aluno.objects.get(email=email)
         except Aluno.DoesNotExist:
             # Usuario nao existe
-            formulario = AlunoForm(request.POST)
+            formulario = AlunoForm(request.POST)  # pegar os dados na requisição
             if formulario.is_valid():
                 aluno = formulario.save()
                 request.session['aluno_id'] = aluno.id  # session vai pegar meu objeto de request e vai guardar um
