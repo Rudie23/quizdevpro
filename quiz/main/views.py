@@ -91,7 +91,7 @@ def perguntas(request, indice):  # indice é o parametro passado na url
                         # o aluno irá obter a pontuação máxima
                         Resposta(aluno_id=aluno_id, pergunta=pergunta, pontos=PONTUACAO_MAXIMA).save()
                     else:
-                        # Agora, se existe já uma resposta salva, a lógica a seguir irá calcular a nota
+                        # Agora, se existe já uma resposta salva, a lógica a seguir calculará a nota
                         diferenca = now() - data_da_pri_resposta
                         diferenca_em_segundos = int(diferenca.total_seconds())
                         pontos = max(PONTUACAO_MAXIMA - diferenca_em_segundos, 10)
